@@ -2,7 +2,7 @@
 // @name          GitHub Show More Issues
 // @namespace     github-show-more-issues
 // @description   GitHub Show More Issues
-// @version 0.1
+// @version       0.1
 // @include       https://github.com/*
 // @author        Yura Kolt >> http://github.com/ykolt
 // ==/UserScript==
@@ -58,6 +58,13 @@ function main()
 		return(setStr);
 	}
 	
+	if (getCookie('switch') == null)
+	{
+		expires = new Date();
+		expires.setTime(expires.getTime() + (1000 * 86400 * 365));
+		setCookie('switch', 1, expires);
+	}
+	
 	var background_color = 'style="background:#' + ((getCookie('switch')==1) ? '999999' : 'ECECEC') + ' !important;"';
 	$('.issues').parent().find('.filterbar').after('\
 		<div class="sidebar-show-all-issues">\
@@ -94,7 +101,7 @@ function main()
 						if (infinity)
 							ajax_more(true);
 						else
-							ajax_more();
+							ajax_more(false);
 					}
 					else
 					{
@@ -123,7 +130,7 @@ function main()
 		if (switch_flag == 1)
 		{
 			$(this).css('background', '#999999');
-			ajax_more();
+			ajax_more(false);
 		}
 		else
 		{
@@ -153,7 +160,7 @@ function main()
 	
 	if (getCookie('switch')==1)
 	{
-		ajax_more();
+		ajax_more(false);
 	}
 }
 
